@@ -1,3 +1,3 @@
-import * as ChessImageGenerator from "./src/chess-image-generator.js";
+import * as ChessImageGeneratordef from "./src/chess-image-generator.js";
 
-export const ChessImageGenerator.default;
+export const ChessImageGenerator = ChessImageGeneratordef.default;
