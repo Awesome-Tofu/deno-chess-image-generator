@@ -159,7 +159,7 @@ ChessImageGenerator.prototype = {
           const image = `resources/${this.style}/${
             filePaths[`${piece.color}${piece.type}`]
           }.png`;
-          const imageFile = await loadImage(path.join(import.meta.dirname, image));
+          const imageFile = await loadImage(new URL(image, import.meta.url).pathname);
           await ctx.drawImage(
             imageFile,
             ((this.size / 8) * (7 - j + 1) - this.size / 8) + this.padding[3],
