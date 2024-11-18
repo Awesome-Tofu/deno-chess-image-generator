@@ -1,5 +1,5 @@
-import { createCanvas, loadImage, Frame, Chess, fs, path } from "../deps.ts";
-
+import { createCanvas, loadImage, Frame, fs, path } from "../deps.ts";
+import { ChessGame } from "https://deno.land/x/chess@0.6.0/mod.ts"; // Import ChessGame from deno-chess
 import {
   cols,
   white,
@@ -12,22 +12,13 @@ import {
   defaultStyle,
   filePaths,
 } from "./config/index.js";
-/**
- *
- * @typedef {object} Options
- * @property {number} [size] Pixel length of desired image
- * @property {string} [light] Color of light squares
- * @property {string} [dark] Color of dark squares
- * @property {string} [highlight] Color of highlight overlay
- * @property {"merida"|"alpha"|"cheq"} [style] Desired style of pieces
- * @property {boolean} [flipped] Whether the board is to be flipped or not
- */
+
 /**
  * Object constructor, initializes options.
  * @param {Options} [options] Optional options
  */
 function ChessImageGenerator(options = {}) {
-  this.chess = new Chess();
+  this.chess = new ChessGame(); // Use deno-chess ChessGame instead of chess.js
   this.highlightedSquares = [];
 
   this.size = options.size || defaultSize;
@@ -43,11 +34,11 @@ function ChessImageGenerator(options = {}) {
 
 ChessImageGenerator.prototype = {
   /**
-   * Loads PGN into chess.js object.
+   * Loads PGN into chess game
    * @param {string} pgn Chess game PGN
    */
   async loadPGN(pgn) {
-    if (!this.chess.loadPgn(pgn)) {
+    if (!this.chess.loadPGN(pgn)) { // Use deno-chess loadPGN method
       throw new Error("PGN could not be read successfully");
     } else {
       this.ready = true;
@@ -55,11 +46,11 @@ ChessImageGenerator.prototype = {
   },
 
   /**
-   * Loads FEN into chess.js object
+   * Loads FEN into chess game
    * @param {string} fen Chess position FEN
    */
-  async loadFEN(fen) {    
-    if (!this.chess.load(fen)) {
+  async loadFEN(fen) {
+    if (!this.chess.loadFEN(fen)) { // Use deno-chess loadFEN method
       throw new Error("FEN could not be read successfully");
     } else {
       this.ready = true;
@@ -67,12 +58,13 @@ ChessImageGenerator.prototype = {
   },
 
   /**
-   * Loads position array into chess.js object
+   * Loads position array into chess game
    * @param {string[][]} array Chess position array
    */
   loadArray(array) {
-    this.chess.clear();
-
+    this.chess.clear(); // Clear the board
+    
+    // Load positions
     for (let i = 0; i < array.length; i += 1) {
       for (let j = 0; j < array[i].length; j += 1) {
         if (array[i][j] !== "" && black.includes(array[i][j].toLowerCase())) {
@@ -145,7 +137,7 @@ ChessImageGenerator.prototype = {
           ctx.fill();
         }
 
-        const piece = this.chess.get(coords);
+        const piece = this.chess.get(coords); // Get the piece at the coordinates
 
         if (
           piece &&
