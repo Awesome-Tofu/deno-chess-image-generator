@@ -1,2 +1,2 @@
-export = ChessImageGenerator;
-import ChessImageGenerator = require("./chess-image-generator");
+import * as ChessImageGenerator from "./chess-image-generator.js";
+export default ChessImageGenerator;

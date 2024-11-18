@@ -1,0 +1,14 @@
+{
+  "name": "deno-chess-image-generator",
+  "github": "https://github.com/DjDeveloperr/skia_canvas",
+  "version": "0.5.8",
+  "exports": "./src/index.js",
+
+  "tasks": {
+    "test": "deno run --allow-read --allow-ffi --allow-env test.js"
+  },
+
+  "fmt": {
+    "exclude": ["node_modules", "dist", "vendor"]
+  }
+}

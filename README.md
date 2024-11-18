@@ -53,15 +53,15 @@ Install via node:
 
 Then import the package and instantiate:
 ```
-var ChessImageGenerator = require('chess-image-generator');
+import ChessImageGenerator from 'https://raw.githubusercontent.com/Awesome-Tofu/deno-chess-image-generator/refs/heads/master/mod.ts';
 
-var imageGenerator = new ChessImageGenerator();
+var imageGenerator = new ChessImageGenerator.default();
 ```
 or pass in [options for customization](#image-customization):
 ```
-var ChessImageGenerator = require('chess-image-generator');
+import ChessImageGenerator from 'https://raw.githubusercontent.com/Awesome-Tofu/deno-chess-image-generator/refs/heads/master/mod.ts';
 
-var imageGenerator = new ChessImageGenerator({
+var imageGenerator = new ChessImageGenerator.default({
     size: 720,
     light: 'rgb(200, 200, 200)',
     dark: '#333333',

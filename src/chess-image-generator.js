@@ -1,10 +1,6 @@
-const { createCanvas, loadImage } = require("canvas");
-const Frame = require("canvas-to-buffer");
-const { Chess } = require("chess.js");
-const fs = require("fs");
-const path = require("path");
+import { createCanvas, loadImage, Frame, Chess, fs, path } from "../deps.ts";
 
-const {
+import {
   cols,
   white,
   black,
@@ -15,7 +11,7 @@ const {
   defaultHighlight,
   defaultStyle,
   filePaths,
-} = require("./config/index");
+} from "./config/index.js";
 /**
  *
  * @typedef {object} Options
@@ -51,7 +47,7 @@ ChessImageGenerator.prototype = {
    * @param {string} pgn Chess game PGN
    */
   async loadPGN(pgn) {
-    if (!this.chess.load_pgn(pgn)) {
+    if (!this.chess.loadPgn(pgn)) {
       throw new Error("PGN could not be read successfully");
     } else {
       this.ready = true;
@@ -62,7 +58,7 @@ ChessImageGenerator.prototype = {
    * Loads FEN into chess.js object
    * @param {string} fen Chess position FEN
    */
-  async loadFEN(fen) {
+  async loadFEN(fen) {    
     if (!this.chess.load(fen)) {
       throw new Error("FEN could not be read successfully");
     } else {
@@ -159,7 +155,7 @@ ChessImageGenerator.prototype = {
           const image = `resources/${this.style}/${
             filePaths[`${piece.color}${piece.type}`]
           }.png`;
-          const imageFile = await loadImage(path.join(__dirname, image));
+          const imageFile = await loadImage(path.join(import.meta.dirname, image));
           await ctx.drawImage(
             imageFile,
             ((this.size / 8) * (7 - j + 1) - this.size / 8) + this.padding[3],
@@ -205,4 +201,4 @@ ChessImageGenerator.prototype = {
   },
 };
 
-module.exports = ChessImageGenerator;
+export default ChessImageGenerator;

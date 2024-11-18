@@ -1,22 +1,22 @@
-const cols = 'abcdefgh';
+export const cols = 'abcdefgh';
 
-const white = 'PBNRQK';
+export const white = 'PBNRQK';
 
-const black = 'pbnrqk';
+export const black = 'pbnrqk';
 
-const defaultSize = 480;
+export const defaultSize = 480;
 
-const defaultPadding = [0, 0, 0, 0];
+export const defaultPadding = [0, 0, 0, 0];
 
-const defaultLight = 'rgb(240, 217, 181)';
+export const defaultLight = 'rgb(240, 217, 181)';
 
-const defaultDark = 'rgb(181, 136, 99)';
+export const defaultDark = 'rgb(181, 136, 99)';
 
-const defaultHighlight = 'rgba(235, 97, 80, 0.8)';
+export const defaultHighlight = 'rgba(235, 97, 80, 0.8)';
 
-const defaultStyle = 'merida';
+export const defaultStyle = 'merida';
 
-const filePaths = {
+export const filePaths = {
   wp: 'WhitePawn',
   bp: 'BlackPawn',
   wb: 'WhiteBishop',
@@ -31,15 +31,15 @@ const filePaths = {
   bk: 'BlackKing',
 };
 
-module.exports = {
-  cols,
-  white,
-  black,
-  defaultSize,
-  defaultPadding,
-  defaultLight,
-  defaultDark,
-  defaultHighlight,
-  defaultStyle,
-  filePaths,
-};
+// export {
+//   cols,
+//   white,
+//   black,
+//   defaultSize,
+//   defaultPadding,
+//   defaultLight,
+//   defaultDark,
+//   defaultHighlight,
+//   defaultStyle,
+//   filePaths,
+// };
