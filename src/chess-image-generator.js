@@ -61,11 +61,13 @@ ChessImageGenerator.prototype = {
    * @param {string} fen Chess position FEN
    */
   async loadFEN(fen) {    
-    if (!this.chess.load(fen)) {
-      throw new Error("FEN could not be read successfully");
-    } else {
-      this.ready = true;
-    }
+    this.chess.load(fen);
+    this.ready = true;
+    // if (!this.chess.load(fen)) {
+    //   throw new Error("FEN could not be read successfully");
+    // } else {
+    //   this.ready = true;
+    // }
   },
 
   /**
