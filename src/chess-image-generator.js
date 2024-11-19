@@ -138,7 +138,7 @@ ChessImageGenerator.prototype = {
           ctx.fill();
         }
 
-        const piece = this.chess.get(coords); // Get the piece at the coordinates
+        const piece = this.chess.getSpace(coords); // Get the piece at the coordinates
 
         if (
           piece &&
