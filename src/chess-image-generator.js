@@ -166,12 +166,15 @@ ChessImageGenerator.prototype = {
             }
         }
 
-        const frame = new Frame(canvas, {
-            image: {
-                types: ["png"],
-            },
-        });
-        return frame.toBuffer();
+        // const frame = new Frame(canvas, {
+        //     image: {
+        //         types: ["png"],
+        //     },
+        // });
+        // // console all prototype of frame
+        // console.log(Object.getPrototypeOf(frame));
+        
+        return canvas.encode()
     },
 
     /**
