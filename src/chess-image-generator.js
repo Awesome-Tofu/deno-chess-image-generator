@@ -50,10 +50,11 @@ ChessImageGenerator.prototype = {
    * @param {string} fen Chess position FEN
    */
   async loadFEN(fen) {
-    if (!this.chess.loadFEN(fen)) { // Use deno-chess loadFEN method
-      throw new Error("FEN could not be read successfully");
-    } else {
+    try {
+      this.chess = ChessGame.NewFromFEN(fen); // Create a new game from FEN
       this.ready = true;
+    } catch (error) {
+      throw new Error("FEN could not be read successfully: " + error.message);
     }
   },
 
