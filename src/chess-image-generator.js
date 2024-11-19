@@ -1,4 +1,4 @@
-import { createCanvas, loadImage, Frame, fs, path } from "../deps.ts";
+import { createCanvas, loadImage, Image, Frame, fs, path } from "../deps.ts";
 import { ChessGame } from "https://deno.land/x/chess@0.6.0/mod.ts"; // Import ChessGame from deno-chess
 import {
     cols,
@@ -12,6 +12,7 @@ import {
     defaultStyle,
     filePaths,
 } from "./config/index.js";
+import { type } from "node:os";
 
 /**
  * Object constructor, initializes options.
@@ -142,20 +143,27 @@ ChessImageGenerator.prototype = {
 
                 if (space && space.piece) {
                     const { pieceType, color } = space.piece; // Destructure the type and color of the piece
-                    console.log(pieceType, color);
-                    
+                    const readablePiece = this.getReadablePiece(pieceType, color); // Get the readable piece and color
+
                     if (black.includes(pieceType.toLowerCase())) {
-                        const image = `resources/${this.style}/${filePaths[`${color}${pieceType}`]}.png`;
-                        const imageFile = await loadImage(
-                            `https://raw.githubusercontent.com/Awesome-Tofu/deno-chess-image-generator/refs/heads/master/src/${image}`
-                        );
-                        await ctx.drawImage(
-                            imageFile,
-                            ((this.size / 8) * (7 - j + 1) - this.size / 8) + this.padding[3],
-                            ((this.size / 8) * i) + this.padding[0],
-                            this.size / 8,
-                            this.size / 8
-                        );
+                        const image = `resources/${this.style}/${readablePiece.color}${readablePiece.type}.png`;
+                        const imageUrl = `https://raw.githubusercontent.com/Awesome-Tofu/deno-chess-image-generator/refs/heads/master/src/${image}`;
+                        try {
+                            console.log(`Loading image from ${imageUrl}`);
+                            const imageFile = await Image.load(imageUrl);
+                            console.log(imageFile);
+                            
+                            await ctx.drawImage(
+                                imageFile,
+                                ((this.size / 8) * (7 - j + 1) - this.size / 8) + this.padding[3],
+                                ((this.size / 8) * i) + this.padding[0],
+                                this.size / 8,
+                                this.size / 8
+                            );
+                        } catch (error) {
+                            console.error(`Error loading image from ${imageUrl}:`, error);
+                            throw new Error("Invalid image data");
+                        }
                     }
                 }
             }
@@ -192,6 +200,25 @@ ChessImageGenerator.prototype = {
                 fs.close(fd, () => pngPath);
             });
         });
+    },
+
+    getReadablePiece (pieceType, color) {
+        const pieceMap = {
+            p: "Pawn",
+            r: "Rook",
+            n: "Knight",
+            b: "Bishop",
+            q: "Queen",
+            k: "King",
+        };
+        const colorMap = {
+            white: "White",
+            black: "Black",
+        };
+        return {
+            type: pieceMap[pieceType.toLowerCase()],
+            color: colorMap[color],
+        };
     },
 };
 
