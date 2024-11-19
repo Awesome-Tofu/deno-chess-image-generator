@@ -149,7 +149,6 @@ ChessImageGenerator.prototype = {
                         const image = `resources/${this.style}/${readablePiece.color}${readablePiece.type}.png`;
                         const imageUrl = `https://raw.githubusercontent.com/Awesome-Tofu/deno-chess-image-generator/refs/heads/master/src/${image}`;
                         try {
-                            console.log(`Loading image from ${imageUrl}`);
                             const imageFile = await Image.load(imageUrl);
                             await ctx.drawImage(
                                 imageFile,
