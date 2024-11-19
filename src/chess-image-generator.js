@@ -151,8 +151,6 @@ ChessImageGenerator.prototype = {
                         try {
                             console.log(`Loading image from ${imageUrl}`);
                             const imageFile = await Image.load(imageUrl);
-                            console.log(imageFile);
-                            
                             await ctx.drawImage(
                                 imageFile,
                                 ((this.size / 8) * (7 - j + 1) - this.size / 8) + this.padding[3],
