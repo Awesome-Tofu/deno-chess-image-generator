@@ -138,17 +138,15 @@ ChessImageGenerator.prototype = {
           ctx.fill();
         }
 
-        const piece = this.chess.getSpace(coords); // Get the piece at the coordinates
-
-        if (
-          piece &&
-          piece.type !== "" &&
-          black.includes(piece.type.toLowerCase())
-        ) {
-          const image = `resources/${this.style}/${
-            filePaths[`${piece.color}${piece.type}`]
-          }.png`;
-          const imageFile = await loadImage(`https://raw.githubusercontent.com/Awesome-Tofu/deno-chess-image-generator/refs/heads/master/src/${image}`);
+      const space = this.chess.getSpace(coords); // Get the space details at the coordinates
+      
+      if (space && space.piece) {
+        const { type, color } = space.piece; // Destructure the type and color of the piece
+        if (black.includes(type.toLowerCase())) {
+          const image = `resources/${this.style}/${filePaths[`${color}${type}`]}.png`;
+          const imageFile = await loadImage(
+            `https://raw.githubusercontent.com/Awesome-Tofu/deno-chess-image-generator/refs/heads/master/src/${image}`
+          );
           await ctx.drawImage(
             imageFile,
             ((this.size / 8) * (7 - j + 1) - this.size / 8) + this.padding[3],
@@ -158,7 +156,7 @@ ChessImageGenerator.prototype = {
           );
         }
       }
-    }
+
 
     const frame = new Frame(canvas, {
       image: {
