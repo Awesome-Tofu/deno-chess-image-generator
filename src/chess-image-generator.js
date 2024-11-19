@@ -142,6 +142,8 @@ ChessImageGenerator.prototype = {
 
                 if (space && space.piece) {
                     const { pieceType, color } = space.piece; // Destructure the type and color of the piece
+                    console.log(pieceType, color);
+                    
                     if (black.includes(pieceType.toLowerCase())) {
                         const image = `resources/${this.style}/${filePaths[`${color}${pieceType}`]}.png`;
                         const imageFile = await loadImage(
