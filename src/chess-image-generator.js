@@ -141,9 +141,9 @@ ChessImageGenerator.prototype = {
                 const space = this.chess.getSpace(coords); // Get the space details at the coordinates
 
                 if (space && space.piece) {
-                    const { type, color } = space.piece; // Destructure the type and color of the piece
-                    if (black.includes(type.toLowerCase())) {
-                        const image = `resources/${this.style}/${filePaths[`${color}${type}`]}.png`;
+                    const { pieceType, color } = space.piece; // Destructure the type and color of the piece
+                    if (black.includes(pieceType.toLowerCase())) {
+                        const image = `resources/${this.style}/${filePaths[`${color}${pieceType}`]}.png`;
                         const imageFile = await loadImage(
                             `https://raw.githubusercontent.com/Awesome-Tofu/deno-chess-image-generator/refs/heads/master/src/${image}`
                         );
